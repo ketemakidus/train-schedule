@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 
 
@@ -14,11 +14,10 @@ $(document).ready(function() {
 
   var database = firebase.database();
 
-  // Capture Button Click
+
   $("#add-Trian-btn").on("click", function (event) {
     event.preventDefault();
 
-    // Grabbed values from text boxes
     var trainName = $("#train-name-input").val().trim();
     var destination = $("#distenation-input").val().trim();
     var firstTrain = $("#start-input").val().trim();
@@ -42,38 +41,40 @@ $(document).ready(function() {
     var newFreq = childSnapshot.val().frequency;
 
 
-    var startTimeConverted = moment(newTrain, "hh:mm").subtract(newFreq, "minutes")
 
+
+    var startTimeConverted = moment(newTrain, "hh:mm").add(newFreq, "hh:mm")
+
+    var diffTime = moment().add(moment.unix( newFirstTrain), "minutes");
 
     var currentTime = moment();
-
-    var diffTime = moment().diff(moment(startTimeConverted), "minutes");
-    // console.log(diffTime);
-
-    var tRemainder = diffTime % newFreq;
-
-    var tMinutesTillTrain = newFreq - tRemainder;
-
-    var nextTrain = moment().add(tMinutesTillTrain, "minutes");
     
-    var catchTrain = moment(nextTrain).format("HH:mm");
+    var tRemainder = moment().add(moment.unix( currentTime), "minutes") % newFreq ;
+    
+		var minutes = newFreq  - tRemainder;
 
-    if(moment(newFirstTrain, "HH:mm").isBefore(moment(currentTime, "HH:mm"))){
-      var nextTraintime = 
-    }
+    var tArrival = moment().add(minutes, "m").format("hh:mm A"); 
 
-    var newRow =  $("<tr>").append(
+    var nextTrain = moment().add(tRemainder, "minutes");
+
+
+
+    var newRow = $("<tr>").append(
       $("<td>").text(newTrain),
       $("<td>").text(newLocation),
       $("<td>").text(newFreq),
-      $("<td>") .text(catchTrain),
-      $("<td>").text(diffTime),
+      $("<td>").text(tArrival),
+      $("<td>").text(tRemainder),
     );
 
-      $("#Train-table > tbody").append(newRow);
-    });
-
-    $("#trainName, #destination, #firstTrain, #interval").val("");
-    return false;
+    $("#Train-table > tbody").append(newRow);
   });
-   
+
+  $("#trainName, #destination, #firstTrain, #interval").val("");
+  return false;
+});
+
+
+
+
+
