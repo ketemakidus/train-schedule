@@ -45,18 +45,23 @@ $(document).ready(function () {
 
     var startTimeConverted = moment(newTrain, "hh:mm").add(newFreq, "hh:mm")
 
-    var diffTime = moment().add(moment.unix( newFirstTrain), "minutes");
+    var diffTime = moment().add(moment.unix(newFirstTrain), "minutes");
 
     var currentTime = moment();
-    
-    var tRemainder = moment().add(moment.unix( currentTime), "minutes") % newFreq ;
-    
-		var minutes = newFreq  - tRemainder;
-
-    var tArrival = moment().add(minutes, "m").format("hh:mm A"); 
 
     var nextTrain = moment().add(tRemainder, "minutes");
 
+    var tArrival = moment().add(newFreq, "m");
+
+    var tRemainder = diffTime %  newFreq;
+
+    console.log(tRemainder);
+
+    
+   
+    
+
+    
 
 
     var newRow = $("<tr>").append(
