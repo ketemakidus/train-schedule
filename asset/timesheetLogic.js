@@ -41,25 +41,25 @@ $(document).ready(function () {
     var newFreq = childSnapshot.val().frequency;
 
 
-
-
     var startTimeConverted = moment(newTrain, "hh:mm").add(newFreq, "hh:mm")
-
-    var diffTime = moment().add(moment.unix(newFirstTrain), "minutes");
+console.log(startTimeConverted);
 
     var currentTime = moment();
+    console.log(currentTime);
 
-    var nextTrain = moment().add(tRemainder, "minutes");
+    var diffTime = moment().add(moment.unix(newFirstTrain), "minutes");
+    console.log(diffTime);
 
-    var tArrival = moment().add(newFreq, "m");
-
-    var tRemainder = diffTime %  newFreq;
-
+    var tRemainder = moment().diff(moment.unix(newFreq), "minutes") % newFreq ;
     console.log(tRemainder);
+    
+    var minutes = newFreq - tRemainder;
+    console.log(minutes);
 
+    var tArrival = moment().add(minutes, "m").format("hh:mm A"); 
+    console.log(tArrival);
     
-   
-    
+  
 
     
 
