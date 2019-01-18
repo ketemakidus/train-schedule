@@ -59,7 +59,7 @@ console.log(startTimeConverted);
     var tArrival = moment().add(minutes, "m").format("hh:mm A"); 
     console.log(tArrival);
     
-  
+   
 
     
 
@@ -69,7 +69,7 @@ console.log(startTimeConverted);
       $("<td>").text(newLocation),
       $("<td>").text(newFreq),
       $("<td>").text(tArrival),
-      $("<td>").text(tRemainder),
+      $("<td>").text(minutes),
     );
 
     $("#Train-table > tbody").append(newRow);
